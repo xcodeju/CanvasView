@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Slider">
+        <attr name="mColor" format="color|integer"/>
+        <attr name="mRadius" format="float|integer|dimension"/>
+    </declare-styleable>
+</resources>
