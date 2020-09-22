@@ -90,6 +90,7 @@ class Slider : View {
                         event.y
                     }
                 }
+                callSliderValueBack()
                 invalidate()//刷新
             }
             MotionEvent.ACTION_MOVE -> {
@@ -105,6 +106,7 @@ class Slider : View {
                         event.y
                     }
                 }
+                callSliderValueBack()
                 invalidate()//刷新
             }
             MotionEvent.ACTION_UP -> {
@@ -124,6 +126,29 @@ class Slider : View {
     private fun dp2px(context: Context,dpValue:Int):Float{
         val scale = context.resources.displayMetrics.density
         return (scale * dpValue + 0.5f)
+    }
+
+    /**
+     * 接口，实现滑动条触摸值回调
+     * */
+    public interface OnSliderChangedListener{
+        fun sliderCallBack(p:Float)
+    }
+
+    /**
+     * 监听器
+     * */
+    private var listener:OnSliderChangedListener? = null
+
+    /**
+     * 注册监听器
+     * */
+    public fun addListener(listener: OnSliderChangedListener){
+        this.listener = listener
+    }
+
+    private fun callSliderValueBack(){
+        listener?.sliderCallBack(position)
     }
 
 }
