@@ -15,6 +15,8 @@ class DrawBoard : View {
             color = mColor
             strokeWidth = mLineWidth
             style = Paint.Style.STROKE
+            isAntiAlias = true
+            isDither = true
         }
     }
 
@@ -101,7 +103,7 @@ class DrawBoard : View {
                 mPath?.moveTo(mLastX,mLastY)
             }
             MotionEvent.ACTION_MOVE -> {
-                mPath?.quadTo(mLastX,mLastY,x!!,y!!)
+                mPath?.quadTo((mLastX + x!!) / 2,(mLastY + y!!) / 2,x,y)
                 mBuffCanvas.drawPath(mPath!!,mPaint)
                 invalidate()
                 mLastX = x!!
@@ -215,7 +217,7 @@ class DrawBoard : View {
     /**
      * 设置画笔模式
      * */
-    public fun serEraserMode(mode: EraserMode){
+    public fun setMode(mode: EraserMode){
         if (mode != mEraserMode){
             if (mode == EraserMode.EraserMode){
 
@@ -224,7 +226,6 @@ class DrawBoard : View {
                     strokeWidth = mCanvasSize
                     xfermode = portermode
                 }
-
             }else if (mode == EraserMode.PaintMode) {
                 mPaint.apply {
                     color = mColor
@@ -234,6 +235,10 @@ class DrawBoard : View {
             }
             this.mEraserMode = mode
         }
+    }
+
+    public fun getMode():EraserMode{
+        return mEraserMode
     }
 
 }

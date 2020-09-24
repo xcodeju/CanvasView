@@ -121,6 +121,7 @@ class Slider : View {
 
     /**
      * dp 转 px
+     *
      * @param dpValue dp值
      * */
     private fun dp2px(context: Context,dpValue:Int):Float{
@@ -147,8 +148,11 @@ class Slider : View {
         this.listener = listener
     }
 
+    /**
+     * 回调滑动比值
+     * */
     private fun callSliderValueBack(){
-        listener?.sliderCallBack(position)
+        listener?.sliderCallBack(position / measuredHeight)
     }
 
 }
